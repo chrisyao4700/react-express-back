@@ -6,10 +6,8 @@ const v1Router = require('./v1/index.route');
 const func = require('od-utility');
 const pkg = require('../package.json');
 
-const versions = ((pkg_info) => {
-    const m_version = pkg_info.version.split('.')[0];
-    console.log(m_version);
-})(pkg);
+const versions = ((pkg_info) => Array((parseInt(pkg_info.version.split('.')[0]) || 0) + 1).fill(0).map((v, index) => `v${index}`))(pkg);
+
 router.use('/:version', async (req, res, next) => {
     try {
         const {version} = req.params;
