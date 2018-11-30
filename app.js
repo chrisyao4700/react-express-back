@@ -15,10 +15,14 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 
 // TODO: custom routes
-
+app.use(express.static(path.join(__dirname, 'front-end/build')));
 app.use('/api', apiRoute);
 
 
+app.get('*', (req, res, next) => {
+    const file_path = `${__dirname}/front-end/build/index.html`;
+    res.sendFile(path.join(file_path));
+});
 // catch 404 and forward to error handler
 app.use((req, res, next) => next(createError(404)));
 
